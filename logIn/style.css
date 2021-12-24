@@ -1,0 +1,84 @@
+
+*,*::before,*::after{
+    box-sizing: border-box;
+}
+body{
+    font-size: 16px;
+    background: rgb(86,155,203);
+    background: radial-gradient(circle, rgba(86,155,203,1) 0%, rgba(0,0,0,1) 100%);
+    display: flex;
+    justify-content: center;
+    font-family: Helvetica, sans-serif;
+    height: 100vh;
+}
+
+.flutter{
+    margin-top:  100px;
+    background-color: #333333;
+    max-width: 25rem;
+    max-height: 52vh;
+    width: 90%;
+    padding: 2.5rem;
+    border-radius:  8px;
+    box-shadow: 0px 0px 20px;
+}
+.flutter p{
+    text-align: unset;
+}
+.flutter .title{
+    font-size: 32px;
+    margin:0px;
+    color:#89BBDE;
+}
+.flutter .login{
+    color:#BBDCAD;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.flutter input{
+   border:none;
+   border-bottom: 2px solid #BBDCAD;
+   width: 90%;
+   background-color: #333333;
+   padding-bottom:8px;
+   padding-top: 8px;
+}
+.flutter input:focus{
+    border:none;
+    outline: none;
+    border-bottom: 2px solid #89BBDE;
+}
+.flutter button, .flutter a {
+    display: block;
+}
+.flutter .float-right{
+    float: right;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+.flutter button{
+    border: none;
+    max-width: 15rem;
+    height: 2rem;
+    padding: 5px 30px;
+    border-radius: 12px;
+    background-color: #BBDCAD;
+    color: #814747;
+    font-weight: bold;
+    font-size: 15px;
+    box-shadow: 0px 0px 20px;
+}
+.flutter button:hover, .flutter a:hover{
+    background-color: #89BBDE;
+}
+.flutter a{
+    background-color: #BBDCAD;
+    padding:5px 20px;
+    border-radius: 12px;
+    font-weight: bold;
+    color: #814747;
+    margin-top:25px;
+    text-decoration: none;
+    box-shadow: 0px 0px 20px;
+}
