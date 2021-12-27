@@ -1,4 +1,3 @@
-
 *,*::before,*::after{
     box-sizing: border-box;
 }
@@ -12,7 +11,7 @@ body{
     height: 100vh;
 }
 
-.flutter{
+.login-wrapper, .signIn-wrapper{
     margin-top:  100px;
     background-color: #333333;
     max-width: 25rem;
@@ -22,20 +21,20 @@ body{
     border-radius:  8px;
     box-shadow: 0px 0px 20px;
 }
-.flutter p{
+.login-wrapper p, .signIn-wrapper p{
     text-align: unset;
 }
-.flutter .title{
+.login-wrapper .title , .signIn-wrapper .title{
     font-size: 32px;
     margin:0px;
     color:#89BBDE;
 }
-.flutter .login{
+.login-wrapper .login, .signIn-wrapper .signIn{
     color:#BBDCAD;
     margin-top: 30px;
     margin-bottom: 10px;
 }
-.flutter input{
+.login-wrapper input, .signIn-wrapper input{
    border:none;
    border-bottom: 2px solid #BBDCAD;
    width: 90%;
@@ -43,21 +42,21 @@ body{
    padding-bottom:8px;
    padding-top: 8px;
 }
-.flutter input:focus{
+.login-wrapper input:focus, .signIn-wrapper input:focus{
     border:none;
     outline: none;
     border-bottom: 2px solid #89BBDE;
 }
-.flutter button, .flutter a {
+.login-wrapper button, .login-wrapper a , .signIn-wrapper button , .signIn-wrapper a {
     display: block;
 }
-.flutter .float-right{
+.login-wrapper .float-right , .signIn-wrapper .float-right{
     float: right;
     margin-top: 30px;
     display: flex;
     flex-direction: column;
 }
-.flutter button{
+.login-wrapper button , .signIn-wrapper button{
     border: none;
     max-width: 15rem;
     height: 2rem;
@@ -69,10 +68,10 @@ body{
     font-size: 15px;
     box-shadow: 0px 0px 20px;
 }
-.flutter button:hover, .flutter a:hover{
+.login-wrapper button:hover, .login-wrapper a:hover , .signIn-wrapper button:hover , .signIn-wrapper a:hover{
     background-color: #89BBDE;
 }
-.flutter a{
+.login-wrapper a , .signIn-wrapper a{
     background-color: #BBDCAD;
     padding:5px 20px;
     border-radius: 12px;
@@ -80,5 +79,6 @@ body{
     color: #814747;
     margin-top:25px;
     text-decoration: none;
+    text-align: center;
     box-shadow: 0px 0px 20px;
 }
