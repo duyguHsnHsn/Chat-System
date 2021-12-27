@@ -30,18 +30,20 @@ body {
   display: flex;
   flex-wrap: wrap;
 }
-.screenHeader button, .chatHeader button {
+.screenHeader button, .chatHeader button, .addGroup .float-right , .findGroup .float-right {
   margin-right: 10px;
   border-radius: 12px;
   padding: 7px;
   border: none;
-  background-color: #02AF9C;
   color: #244B4B;
   font-weight: bold;
   font-size: 15px;
   box-shadow: 0px 0px 20px;
 }
-.screenHeader button:hover , .chatHeader button:hover{
+.screenHeader button, .chatHeader button{
+    background-color: #02AF9C;
+}
+.screenHeader button:hover , .chatHeader button:hover , .addGroup .float-right:hover {
     background-color: beige;
 }
 main {
@@ -169,3 +171,51 @@ main .currentChatName{
     padding-left: 30px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+.addGroup , .findGroup {
+    position: absolute;
+    top: 31%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top:  100px;
+    background-color: #333333;
+    max-width: 25rem;
+    max-height: 52vh;
+    width: 90%;
+    padding: 2.5rem;
+    border-radius:  8px;
+    box-shadow: 0px 0px 20px;
+}
+.addGroup .title , .findGroup .title {
+    font-size: 32px;
+    margin:0px;
+    color:#89BBDE;
+}
+.addGroup .create , .findGroup .find {
+    color:#BBDCAD;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.addGroup input , .findGroup input {
+    border:none;
+    border-bottom: 2px solid #BBDCAD;
+    width: 90%;
+    background-color: #333333;
+    padding-bottom:8px;
+    padding-top: 8px;
+ }
+ .addGroup input:focus ,  .findGroup input:focus{
+     border:none;
+     outline: none;
+     border-bottom: 2px solid #89BBDE;
+ }
+ .addGroup .float-right , .findGroup .float-right  {
+    display: block;
+     float: right;
+     margin-top: 30px;
+     display: flex;
+     flex-direction: column;
+     background-color: #BBDCAD;
+ }
+ .hidden {
+     display: none;
+ }

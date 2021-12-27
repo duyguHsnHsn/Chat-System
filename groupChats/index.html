@@ -11,8 +11,8 @@
     <header class="screenHeader">
       <h1>MyChat</h1>
       <div class="headerbuttons">
-        <button>Search for new groups</button>
-        <button>Create a new group</button>
+        <button id="seachForGroups">Search for new groups</button>
+        <button id="createGroup">Create a new group</button>
       </div>
     </header>
     <main>
@@ -24,37 +24,37 @@
               <p class="lastMessage"><span>Max: </span>Ok, bye!</p>
             </li>
             <li>
-                <p class="chatName">Lala</p>
-                <p class="lastMessage"><span>Max: </span>Ok, bye!</p>
-              </li>
-              <li>
-                <p class="chatName">Lala</p>
-                <p class="lastMessage"><span>Max: </span>Ok, bye!</p>
-              </li>
-              <li>
-                <p class="chatName">Lala</p>
-                <p class="lastMessage"><span>Max: </span>Ok, bye!</p>
-              </li>
-              <li>
-                <p class="chatName">Lala</p>
-                <p class="lastMessage"><span>Max: </span>Ok, bye!</p>
-              </li>
-              <li>
-                <p class="chatName">Lala</p>
-                <p class="lastMessage"><span>Max: </span>Ok, bye!</p>
-              </li>
-              <li>
-                <p class="chatName">Lala</p>
-                <p class="lastMessage"><span>Max: </span>Ok, bye!</p>
-              </li>
-              <li>
-                <p class="chatName">Lala</p>
-                <p class="lastMessage"><span>Max: </span>Ok, bye!</p>
-              </li>
-              <li>
-                <p class="chatName">Lala</p>
-                <p class="lastMessage"><span>Max: </span>Ok, bye!</p>
-              </li>
+              <p class="chatName">Lala</p>
+              <p class="lastMessage"><span>Max: </span>Ok, bye!</p>
+            </li>
+            <li>
+              <p class="chatName">Lala</p>
+              <p class="lastMessage"><span>Max: </span>Ok, bye!</p>
+            </li>
+            <li>
+              <p class="chatName">Lala</p>
+              <p class="lastMessage"><span>Max: </span>Ok, bye!</p>
+            </li>
+            <li>
+              <p class="chatName">Lala</p>
+              <p class="lastMessage"><span>Max: </span>Ok, bye!</p>
+            </li>
+            <li>
+              <p class="chatName">Lala</p>
+              <p class="lastMessage"><span>Max: </span>Ok, bye!</p>
+            </li>
+            <li>
+              <p class="chatName">Lala</p>
+              <p class="lastMessage"><span>Max: </span>Ok, bye!</p>
+            </li>
+            <li>
+              <p class="chatName">Lala</p>
+              <p class="lastMessage"><span>Max: </span>Ok, bye!</p>
+            </li>
+            <li>
+              <p class="chatName">Lala</p>
+              <p class="lastMessage"><span>Max: </span>Ok, bye!</p>
+            </li>
           </ul>
         </nav>
       </aside>
@@ -93,20 +93,38 @@
             <p class="username">Lili</p>
             <p>Date/Time: <span id="datetime"></span></p>
             <p class="text">Hello, I'm new here!</p>
-          </div><div class="message">
+          </div>
+          <div class="message">
             <p class="username">Lili</p>
             <p>Date/Time: <span id="datetime"></span></p>
             <p class="text">Hello, I'm new here!</p>
-          </div><div class="message">
+          </div>
+          <div class="message">
             <p class="username">Lili</p>
             <p>Date/Time: <span id="datetime"></span></p>
             <p class="text">Hello, I'm new here!</p>
           </div>
         </section>
         <div class="sendMessage">
-          <input type="text" class="newMessage" placeholder="Type something..." />
+          <input
+            type="text"
+            class="newMessage"
+            placeholder="Type something..."
+          />
         </div>
       </article>
     </main>
+    <section class="addGroup hidden">
+      <p class="title">MyChat</p>
+      <p class="create">Create a new group</p>
+      <input type="text" placeholder="Enter name of the group" />
+      <button class="float-right">Submit</button>
+    </section>
+    <section class="findGroup hidden">
+        <p class="title">MyChat</p>
+        <p class="find">Find a new group</p>
+        <input type="text" placeholder="Enter name of the group" />
+        <button class="float-right">Search</button>
+      </section>
   </body>
 </html>
