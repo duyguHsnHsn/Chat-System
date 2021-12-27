@@ -1,89 +1,171 @@
-*,*::before,*::after{
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-body{
-    font-family: Helvetica, sans-serif;
-    margin: 0px;
+body {
+  font-family: Helvetica, sans-serif;
+  margin: 0px;
 }
 
-.screenHeader{
+.screenHeader {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: #091A32;
+  justify-content: space-between;
+  align-items: center;
+  -moz-box-shadow: inset 0 0 10px #000000;
+  -webkit-box-shadow: inset 0 0 10px #000000;
+  box-shadow: inset 0 0 10px #000000;
+}
+.screenHeader h1 {
+  color: #907472;
+  margin-left: 30px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.screenHeader div {
+  margin-right: 30px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.screenHeader button, .chatHeader button {
+  margin-right: 10px;
+  border-radius: 12px;
+  padding: 7px;
+  border: none;
+  background-color: #02AF9C;
+  color: #244B4B;
+  font-weight: bold;
+  font-size: 15px;
+  box-shadow: 0px 0px 20px;
+}
+.screenHeader button:hover , .chatHeader button:hover{
+    background-color: beige;
+}
+main {
+  display: flex;
+}
+main aside {
+  height: 89vh;
+  width: 20%;
+  background-color: #091A32;
+  padding: 0px;
+  -moz-box-shadow: inset 0 0 10px #000000;
+  -webkit-box-shadow: inset 0 0 10px #000000;
+  box-shadow: inset 0 0 10px #000000;
+}
+main aside nav ul {
+  list-style: none;
+  margin: 0px;
+  padding: 5px;
+  max-height: 89vh;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+main aside nav li {
+  background-color: #244B4B;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+main aside nav li p {
+  margin: 5px;
+  overflow:hidden;
+}
+main aside nav li:hover {
+  background-color: #D0D9CD;
+  color: #443a3e;
+}
+main aside nav li .chatName {
+    font-weight: bold;
+    color: #907472;
+    font-size: 20px;
+  }
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #094542;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+main .groupChat{
+    background-image: url(/chatBackground.jpg);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    height: 89vh;
+    width: 80%;
+}
+main .groupChat header{
+    background-color: #214748;
+    margin:0px;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    background-color: #333333;
     justify-content: space-between;
+    height: 3rem;
     align-items: center;
 }
-.screenHeader h1{
-    color: #BBDCAD;
-    margin-left:30px;
-}
-.screenHeader div{
-    margin-right: 30px;
-    display: flex;
-    flex-wrap: wrap;
-}
-.screenHeader button{
-    margin-right: 10px;
-    border-radius: 12px;
-    padding: 7px;
-    border:none;
-    background-color: #BBDCAD;
-    color: #814747;
-    font-weight: bold;
-    font-size: 15px;
-    box-shadow: 0px 0px 20px;
-}
-main{
-    display: flex;   
-}
-main aside{
-    height: 90vh;
-    width: 20%;
-    background-color: #737373;   
-    padding:0px;
-    -moz-box-shadow:    inset 0 0 10px #000000;
-   -webkit-box-shadow: inset 0 0 10px #000000;
-   box-shadow:         inset 0 0 10px #000000;
-}
-main aside nav ul{
-    list-style: none;
-    margin:0px;
-    padding: 5px;
-    max-height: 90vh;
+main .groupChat section{
+    height: 80%;
     overflow: hidden;
     overflow-y: scroll;
 }
-main aside nav li{
-    background-color: #6C6663;
-    padding:10px;
+main .groupChat button{
+    height: 2rem;
+}
+main .groupChat p{
+    margin:0px;
+}
+main .message{
+    background-color: #202D36;
+    margin-left: 30px;
+    clear:right;
+}
+main .myMessage{
+    background-color: #094542;
+    margin-right: 30px;
+    float: right;
+    clear:right;
+}
+main .message, main .myMessage{
+    padding:7px;
     border-radius: 8px;
-    margin-bottom: 10px;
+    width: fit-content;
+    color:#959A9E;
+    margin-top:10px;
 }
-main aside nav li p{
-    margin:5px;
+main .message .username{
+    color:whitesmoke;
 }
-main aside nav li .chatName{
-    font-weight: bold;
-    color: #DBE4E3;
+main .sendMessage{
+    background-color: #11222A;
+    height: 11.7%;
+    margin-top:5px;
+}
+main .sendMessage input{
+    height: 50%;
+    margin-top: 20px;
+    margin-left: 30px;
+    width: 95%;
+    border-radius: 12px;
+    border:none;
+    padding-left: 20px;
+    background-color: #2B383E;
+}
+main .sendMessage input:focus{
+    border: none;
+    background-color: beige;
+}
+main .currentChatName{
+    color:beige;
     font-size: 20px;
+    font-weight: bold;
+    padding-left: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
-main aside nav li:hover{
-    background-color: #A9A3A2;
-    color:#443A3E;
-}
-
-::-webkit-scrollbar {
-    width: 10px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #BBDCAD; 
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
