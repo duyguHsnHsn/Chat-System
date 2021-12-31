@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Screen</title>
     <link rel="stylesheet" href="/logIn/style.css" />
+    <script type="module" src="script.js"></script>
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
@@ -16,13 +17,15 @@
   <body>
     <div class="signIn-wrapper">
       <p class="title">MyChat</p>
-      <p class="signIn"> Sign In</p>
-      <input type="text" placeholder="E-mail" />
-      <input type="password" placeholder="Password" />
+      <p class="signIn"> Sign Up</p>
+      <form id="signup_form_id" method="post" name="myform"></form>
+      <input type="text" placeholder="Username" id="username" class="textInputs"/>
+      <input type="password" placeholder="Password" id="password" class="textInputs"/>
       <div class="float-right">
-        <button>Submit</button>
+        <button id="submitSignIn">Submit</button>
         <a href="/logIn/index.html">Log In <i class="fas fa-sign-in-alt"></i></i></a>
       </div>
+      </form>
     </div>
   </body>
 </html>

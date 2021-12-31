@@ -17,12 +17,15 @@
     <div class="login-wrapper">
       <p class="title">MyChat</p>
       <p class="login">Login</p>
-      <input type="text" placeholder="E-mail" />
-      <input type="password" placeholder="Password" />
-      <div class="float-right">
-        <button>Submit</button>
-        <a href="/signIn/index.html">Create an account</a>
-      </div>
+      <form id="login_form_id" method="post" name="myform">
+        <input type="text" placeholder="Username" class="textInputs" id="username"/>
+        <input type="password" placeholder="Password" class="textInputs" id="password"/>
+        <div class="float-right">
+          <button id="submitLogin">Submit</button>
+          <a href="/signIn/index.html">Create an account</a>
+        </div>
+      </form>
     </div>
+    <script type="module" src="script.js"></script>
   </body>
 </html>
