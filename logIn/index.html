@@ -6,26 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Screen</title>
     <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-      integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
-      crossorigin="anonymous"
-    />
+    <script type="module" src="script.js"></script>
   </head>
   <body>
     <div class="login-wrapper">
       <p class="title">MyChat</p>
       <p class="login">Login</p>
       <form id="login_form_id" method="post" name="myform">
-        <input type="text" placeholder="Username" class="textInputs" id="username"/>
+        <input type="text" placeholder="Email" class="textInputs" id="email"/>
         <input type="password" placeholder="Password" class="textInputs" id="password"/>
         <div class="float-right">
           <button id="submitLogin">Submit</button>
-          <a href="/signIn/index.html">Create an account</a>
+          <a href="/signUp/index.html">Create an account</a>
         </div>
       </form>
     </div>
-    <script type="module" src="script.js"></script>
+    <section class="goToMainRoom hidden">
+      <p class="title">MyChat</p>
+      <a href="/groupChats/index.html">Go into chatbox</i></a>
+    </section>
   </body>
 </html>

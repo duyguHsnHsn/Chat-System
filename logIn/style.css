@@ -1,3 +1,5 @@
+@import url("https://use.fontawesome.com/releases/v5.15.4/css/all.css");
+
 *,*::before,*::after{
     box-sizing: border-box;
 }
@@ -21,10 +23,13 @@ body{
     border-radius:  8px;
     box-shadow: 0px 0px 20px;
 }
+::placeholder{
+    color: bisque;
+}
 .login-wrapper p, .signIn-wrapper p{
     text-align: unset;
 }
-.login-wrapper .title , .signIn-wrapper .title{
+.login-wrapper .title , .signIn-wrapper .title , .goToMainRoom .title{
     font-size: 32px;
     margin:0px;
     color:#89BBDE;
@@ -68,10 +73,11 @@ body{
     font-size: 15px;
     box-shadow: 0px 0px 20px;
 }
-.login-wrapper #submitLogin:hover, .login-wrapper a:hover , .signIn-wrapper #submitSignIn:hover , .signIn-wrapper a:hover{
+.login-wrapper #submitLogin:hover, .login-wrapper a:hover , .signIn-wrapper #submitSignIn:hover ,
+ .signIn-wrapper a:hover , .goToMainRoom a:hover {
     background-color: #89BBDE;
 }
-.login-wrapper a , .signIn-wrapper a{
+.login-wrapper a , .signIn-wrapper a , .goToMainRoom a{
     background-color: #BBDCAD;
     padding:5px 20px;
     border-radius: 12px;
@@ -82,3 +88,37 @@ body{
     text-align: center;
     box-shadow: 0px 0px 20px;
 }
+.goToMainRoom {
+    position: absolute;
+    top: 31%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top:  100px;
+    background-color: #333333;
+    max-width: 25rem;
+    max-height: 52vh;
+    width: 90%;
+    padding: 2.5rem;
+    border-radius:  8px;
+    box-shadow: 0px 0px 20px;
+}
+.goToMainRoom .title {
+    padding: 10px;
+}
+.hidden{
+    display: none;
+}
+
+ @media all and (max-width:400px){
+    .login-wrapper , .signIn-wrapper {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+    }
+    .login-wrapper .textInputs, .signIn-wrapper input{
+        background-color: transparent;
+    }
+    ::placeholder{
+        color: white;
+    }
+ }

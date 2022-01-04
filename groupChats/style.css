@@ -1,3 +1,5 @@
+@import url("https://use.fontawesome.com/releases/v5.15.4/css/all.css");
+
 *,
 *::before,
 *::after {
@@ -218,4 +220,15 @@ main .currentChatName{
  }
  .hidden {
      display: none;
+ }
+ .exit{
+  float: right;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  font-weight: 600;
+  color: #BBDCAD;
+ }
+ .exit:hover{
+   color:#f1f1f1;
  }

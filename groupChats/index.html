@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Messages</title>
+    <script type="module" src="script.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -114,13 +115,15 @@
         </div>
       </article>
     </main>
-    <section class="addGroup hidden">
+    <section id= "newGroup" class="addGroup hidden">
+      <button id="exitCreating" class="exit"><i class="fas fa-times"></i></button>
       <p class="title">MyChat</p>
       <p class="create">Create a new group</p>
-      <input type="text" placeholder="Enter name of the group" />
-      <button class="float-right">Submit</button>
+      <input id="newGroupName" type="text" placeholder="Enter name of the group" />
+      <button id="submitCreatedGroup" class="float-right">Submit</button>
     </section>
-    <section class="findGroup hidden">
+    <section id="searching" class="findGroup hidden">
+        <button id="exitSearching" class="exit"><i class="fas fa-times"></i></button>
         <p class="title">MyChat</p>
         <p class="find">Find a new group</p>
         <input type="text" placeholder="Enter name of the group" />
