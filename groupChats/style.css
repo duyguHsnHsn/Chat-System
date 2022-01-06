@@ -18,22 +18,26 @@ body {
   background-color: #091A32;
   justify-content: space-between;
   align-items: center;
-  -moz-box-shadow: inset 0 0 10px #000000;
-  -webkit-box-shadow: inset 0 0 10px #000000;
-  box-shadow: inset 0 0 10px #000000;
 }
 .screenHeader h1 {
   color: #907472;
   margin-left: 30px;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
-.screenHeader div {
+.buttonsWrapper {
+  position: absolute;
+  top: 16%;
+  left: 86%;
+  transform: translate(-50%, -50%);
   margin-right: 30px;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
+  max-width: 200px;
+  background-color: #091A32;
 }
-.screenHeader button, .chatHeader button, .addGroup .float-right , .findGroup .float-right {
-  margin-right: 10px;
+.buttonsWrapper button, .chatHeader button, .addGroup .float-right , .findGroup .float-right {
+  margin-bottom: 3px;
   border-radius: 12px;
   padding: 7px;
   border: none;
@@ -42,47 +46,66 @@ body {
   font-size: 15px;
   box-shadow: 0px 0px 20px;
 }
-.screenHeader button, .chatHeader button{
+.buttonsWrapper button, .chatHeader button{
     background-color: #02AF9C;
 }
-.screenHeader button:hover , .chatHeader button:hover , .addGroup .float-right:hover {
+.buttonsWrapper button{
+  margin:10px;
+}
+.chatHeader button:hover , .addGroup .float-right:hover {
     background-color: beige;
 }
 main {
   display: flex;
 }
-main aside {
-  height: 89vh;
-  width: 20%;
+main #listWrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 70vh;
+  width: 30%;
   background-color: #091A32;
   padding: 0px;
+}
+main #listWrapper , .buttonsWrapper , .screenHeader {
   -moz-box-shadow: inset 0 0 10px #000000;
   -webkit-box-shadow: inset 0 0 10px #000000;
   box-shadow: inset 0 0 10px #000000;
 }
-main aside nav ul {
+main #listWrapper nav ul {
   list-style: none;
   margin: 0px;
   padding: 5px;
-  max-height: 89vh;
+  max-height: 50vh;
   overflow: hidden;
   overflow-y: scroll;
 }
-main aside nav li {
+main #listWrapper .groupList{
+  overflow:hidden;
+  font-size: 30px;
+  color:#89BBDE;
+  font-weight: bolder;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin:0px;
+  padding:35px;
+  background-color: transparent;
+}
+main #listWrapper nav li {
   background-color: #244B4B;
   padding: 10px;
   border-radius: 8px;
   margin-bottom: 10px;
 }
-main aside nav li p {
+main #listWrapper nav li p {
   margin: 5px;
   overflow:hidden;
 }
-main aside nav li:hover {
+main #listWrapper nav li:hover {
   background-color: #D0D9CD;
   color: #443a3e;
 }
-main aside nav li .chatName {
+main #listWrapper nav li .chatName {
     font-weight: bold;
     color: #907472;
     font-size: 20px;
@@ -105,7 +128,7 @@ main .groupChat{
     -moz-background-size: cover;
     -o-background-size: cover;
     height: 89vh;
-    width: 80%;
+    width: 100%;
 }
 main .groupChat header{
     background-color: #214748;
@@ -173,7 +196,7 @@ main .currentChatName{
     padding-left: 30px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
-.addGroup , .findGroup {
+.addGroup {
     position: absolute;
     top: 31%;
     left: 50%;
@@ -181,7 +204,7 @@ main .currentChatName{
     margin-top:  100px;
     background-color: #333333;
     max-width: 25rem;
-    max-height: 52vh;
+    max-height: 53vh;
     width: 90%;
     padding: 2.5rem;
     border-radius:  8px;
@@ -192,12 +215,18 @@ main .currentChatName{
     margin:0px;
     color:#89BBDE;
 }
-.addGroup .create , .findGroup .find {
+.addGroup .create , .addGroup .find {
+    clear: right;
     color:#BBDCAD;
-    margin-top: 30px;
     margin-bottom: 10px;
 }
-.addGroup input , .findGroup input {
+.addGroup .create{
+  margin-top: 30px;
+}
+.addGroup .find{
+  margin-top: 80px;
+}
+.addGroup input {
     border:none;
     border-bottom: 2px solid #BBDCAD;
     width: 90%;
@@ -205,12 +234,12 @@ main .currentChatName{
     padding-bottom:8px;
     padding-top: 8px;
  }
- .addGroup input:focus ,  .findGroup input:focus{
+ .addGroup input:focus {
      border:none;
      outline: none;
      border-bottom: 2px solid #89BBDE;
  }
- .addGroup .float-right , .findGroup .float-right  {
+ .addGroup .float-right  {
     display: block;
      float: right;
      margin-top: 30px;
@@ -231,4 +260,32 @@ main .currentChatName{
  }
  .exit:hover{
    color:#f1f1f1;
+ }
+ #username{
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #BBDCAD ;
+  margin-right:10px;
+ }
+ .openSearchingGroups {
+   border:none;
+   background-color: #BBDCAD;
+   color: #11222A;
+   font-weight: 10px;
+   margin-right:10px;
+   padding:7px 10px;
+   border-radius: 50%;
+ }
+ .openGroupList{
+    border:none;
+    color:white;
+    background-color: transparent; 
+    margin-right: 30px;
+ }
+ .openSearchingGroups:hover , .openGroupList:hover {
+    font-size: 15px;
+ }
+ #exitGroupList{
+   margin-right:10px;
+   margin-top: 10px;
  }

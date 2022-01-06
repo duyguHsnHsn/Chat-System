@@ -11,13 +11,16 @@
   <body>
     <header class="screenHeader">
       <h1>MyChat</h1>
-      <div class="headerbuttons">
-        <button id="seachForGroups">Search for new groups</button>
-        <button id="createGroup">Create a new group</button>
+      <div>
+      <input id="username" placeholder="Username" type="text">
+      <button id="plusButton" class="openSearchingGroups"><i class="fas fa-plus"></i></button>
+      <button id="inboxButton" class="openGroupList"><i class="fas fa-inbox"></i></button>
       </div>
     </header>
     <main>
-      <aside>
+      <section id ="listWrapper" class="hidden">
+        <button id="exitGroupList" class="exit"><i class="fas fa-times"></i></button>
+        <p class="groupList">Your groups</p>
         <nav class="group-chats">
           <ul>
             <li>
@@ -58,13 +61,13 @@
             </li>
           </ul>
         </nav>
-      </aside>
+      </section>
       <article class="groupChat">
         <header class="chatHeader">
           <p class="currentChatName">Blala</p>
           <button>Leave chat</button>
         </header>
-        <section class="messages">
+        <section id="messageWindow" class="messages">
           <div class="message">
             <p class="username">Lili</p>
             <p>Date/Time: <span id="datetime"></span></p>
@@ -116,18 +119,18 @@
       </article>
     </main>
     <section id= "newGroup" class="addGroup hidden">
-      <button id="exitCreating" class="exit"><i class="fas fa-times"></i></button>
+      <button id="exitNewGroup" class="exit"><i class="fas fa-times"></i></button>
       <p class="title">MyChat</p>
+      <div class="createNewGroup">
       <p class="create">Create a new group</p>
       <input id="newGroupName" type="text" placeholder="Enter name of the group" />
       <button id="submitCreatedGroup" class="float-right">Submit</button>
-    </section>
-    <section id="searching" class="findGroup hidden">
-        <button id="exitSearching" class="exit"><i class="fas fa-times"></i></button>
-        <p class="title">MyChat</p>
+      </div>
+      <div class="findANewGroup">
         <p class="find">Find a new group</p>
         <input type="text" placeholder="Enter name of the group" />
         <button class="float-right">Search</button>
-      </section>
+      </div>
+    </section>
   </body>
 </html>

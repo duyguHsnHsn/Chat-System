@@ -32,39 +32,32 @@ const analytics = getAnalytics(app);
 const database = getDatabase(app);
 const dataRef = ref(database);
 const groupsDataRef = ref(database, "groups");
-const createGroup = document.getElementById("createGroup");
-const searchForGroup =document.getElementById("seachForGroups")
-const exitSearching = document.getElementById("exitSearching");
-const exitCreating = document.getElementById("exitCreating");
-const findGroupWreapper = document.getElementById("searching");
-const createGroupWreapper = document.getElementById("newGroup");
-const submitCreatedGroup = document.getElementById("submitCreatedGroup");
+const addGroupsButton = document.getElementById("plusButton");
+const exitAddingNewGroup = document.getElementById("exitNewGroup");
+const inboxButton = document.getElementById("inboxButton");
+const exitInbox = document.getElementById("exitGroupList");
+const messageScreen = document.getElementById("messageWindow");
 
-createGroup.addEventListener("click", (event) =>{
-    event.preventDefault();
-    createGroupWreapper.classList.remove("hidden");
+messageScreen.scrollTop = messageScreen.scrollHeight;
+
+addGroupsButton.addEventListener("click",(event)=>{
+  event.preventDefault();
+  document.getElementById("newGroup").classList.remove("hidden");
+})
+
+exitAddingNewGroup.addEventListener("click",(event) =>{
+  event.preventDefault();
+  document.getElementById("newGroup").classList.add("hidden");
+})
+
+inboxButton.addEventListener("click",(event) =>{
+  event.preventDefault();
+  document.getElementById("listWrapper").classList.remove("hidden");
 });
-searchForGroup.addEventListener("click", (event)=>{
-    event.preventDefault();
-    findGroupWreapper.classList.remove("hidden");
-});
-exitSearching.addEventListener("click",(event)=>{
-    event.preventDefault();
-    findGroupWreapper.classList.add("hidden");
-});
-exitCreating.addEventListener("click",(event)=>{
-    event.preventDefault();
-    createGroupWreapper.classList.add("hidden");
-});
-submitCreatedGroup.addEventListener("click",(event)=>{
-    event.preventDefault();
-    var groupName = document.getElementById("newGroupName").value;
-    const newGroupRef = push(groupsDataRef);
-    set(newUserRef, {
-        "groupName": groupName
-    });
-    alert("The new group was created!");
-    document.getElementById("newGroupName").value = null;
+
+exitInbox.addEventListener("click",(event)=>{
+  event.preventDefault();
+  document.getElementById("listWrapper").classList.add("hidden");
 });
 
 
