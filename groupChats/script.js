@@ -35,7 +35,6 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app);
 const auth = getAuth();
-const groupsDataRef = ref(database, "groups");
 const addGroupsButton = document.getElementById("plusButton");
 const exitAddingNewGroup = document.getElementById("exitNewGroup");
 const inboxButton = document.getElementById("inboxButton");
@@ -44,6 +43,8 @@ const messageScreen = document.getElementById("messageWindow");
 const messageInput = document.getElementById("messageInput");
 const userNameInput = document.getElementById("username");
 const messageUl = document.getElementById("messageUl");
+const createNewGroup = document.getElementById("submitCreatedGroup");
+const findNewGroup = document.getElementById("searchForNewGroup");
 
 userNameInput.addEventListener("change", (event) => {
   const username = event.target.value;
@@ -75,7 +76,7 @@ onChildAdded(dataRef, (data) => {
 <p class="username">${message.username}</p>
 <p>${ new Date(message.date).toLocaleString()}</p>
 <p class="text">${message.text}</p>
-<button class="likes"><i class="fas fa-heart"></i> ${message.likes}</button>
+<p class="likes"><i class="fas fa-heart"></i> ${message.likes}</p>
 </li>`;
   listItem.innerHTML = externalHTML;
   messageUl.appendChild(listItem);
@@ -99,6 +100,36 @@ inboxButton.addEventListener("click", (event) => {
 exitInbox.addEventListener("click", (event) => {
   event.preventDefault();
   document.getElementById("listWrapper").classList.add("hidden");
+});
+
+createNewGroup.addEventListener("click", (event)=>{
+  event.preventDefault();
+  var name = document.getElementById("newGroupName").value;
+  const newRef = ref(database, name);
+  const createdRef = push(newRef);
+  set(createdRef, {
+    username: "System",
+    date: Date.now(),
+    text: "This group was created!",
+    likes: 0,
+  });
+  document.getElementById("newGroupName").value = null;
+});
+
+findNewGroup.addEventListener("click",(event)=>{
+  var dbRef = ref(database);
+  event.preventDefault();
+  var name = document.getElementById("searchedGroupName").value;
+  get(child(dbRef, name)).then((snapshot) => {
+    if (snapshot.exists()) {
+      alert("Found!");
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+    document.getElementById("searchedGroupName").value = null;
 });
 
 messageScreen.scrollTop = messageScreen.scrollHeight;
