@@ -154,12 +154,6 @@ main .message{
     margin-left: 30px;
     clear:right;
 }
-main .myMessage{
-    background-color: #094542;
-    margin-right: 30px;
-    float: right;
-    clear:right;
-}
 main .message, main .myMessage{
     padding:7px;
     border-radius: 8px;
@@ -288,4 +282,15 @@ main .currentChatName{
  #exitGroupList{
    margin-right:10px;
    margin-top: 10px;
+ }
+ ul{
+   list-style: none;
+ }
+ .likes {
+    background-color: transparent;
+    color : #959A9E;
+    border: none;
+ }
+ .likes i{
+   color: tomato;
  }

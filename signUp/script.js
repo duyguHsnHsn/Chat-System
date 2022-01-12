@@ -26,8 +26,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const database = getDatabase(app);
-const userDataRef = ref(database, "users");
 const submit = document.getElementById("submitSignIn");
 
 submit.addEventListener("click", (event) => {
