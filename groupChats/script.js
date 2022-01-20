@@ -41,20 +41,24 @@ const inboxButton = document.getElementById("inboxButton");
 const exitInbox = document.getElementById("exitGroupList");
 const messageScreen = document.getElementById("messageWindow");
 const messageInput = document.getElementById("messageInput");
-const userNameInput = document.getElementById("username");
 const messageUl = document.getElementById("messageUl");
 const createNewGroup = document.getElementById("submitCreatedGroup");
 const findNewGroup = document.getElementById("searchForNewGroup");
+const dbRef = ref(database);
 
-userNameInput.addEventListener("change", (event) => {
-  const username = event.target.value;
-  window.localStorage.setItem("username", username);
-  userNameInput.classList.add("hidden");
-});
-
-if (window.localStorage.getItem("username")) {
-  userNameInput.classList.add("hidden");
-}
+if (database,window.localStorage.getItem("username")) {
+  get(child(dbRef, window.localStorage.getItem("username"))).then((snapshot) => {
+    if (!snapshot.exists()) {
+      const newRef = ref(database,window.localStorage.getItem("username"));
+      const createdRef = push(newRef);
+      set(createdRef, {
+        groupName: "General"
+      });
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+};
 
 const dataRef = ref(database, "General");
 
@@ -113,16 +117,36 @@ createNewGroup.addEventListener("click", (event)=>{
     text: "This group was created!",
     likes: 0,
   });
+  get(child(dbRef, window.localStorage.getItem("username"))).then((snapshot) => {
+    if (snapshot.exists()) {
+      const newRef = ref(database,window.localStorage.getItem("username"));
+      const createdRef = push(newRef);
+      set(createdRef, {
+        groupName: name
+      });
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
   document.getElementById("newGroupName").value = null;
 });
 
 findNewGroup.addEventListener("click",(event)=>{
-  var dbRef = ref(database);
   event.preventDefault();
   var name = document.getElementById("searchedGroupName").value;
   get(child(dbRef, name)).then((snapshot) => {
     if (snapshot.exists()) {
-      alert("Found!");
+      get(child(dbRef, window.localStorage.getItem("username"))).then((snapshot) => {
+        if (snapshot.exists()) {
+          const newRef = ref(database,window.localStorage.getItem("username"));
+          const createdRef = push(newRef);
+          set(createdRef, {
+            groupName: name
+          });
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
     } else {
       console.log("No data available");
     }

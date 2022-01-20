@@ -31,6 +31,7 @@ const userDataRef = ref(database, "users");
 const submit = document.getElementById("submitLogin");
 
 submit.addEventListener("click", (event) => {
+  var errorFound = false;
   event.preventDefault();
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
@@ -44,7 +45,15 @@ submit.addEventListener("click", (event) => {
     } else {
       alert(errorMessage);
     }
-    return;
+    errorFound = true;
   });
+  if(!errorFound){
+    var mailArr = email.split('@');
+  window.localStorage.setItem("username", mailArr[0]);
   document.getElementById("linker").classList.remove("hidden");
+  }
+  else{
+    document.getElementById("email").value = null;    
+    document.getElementById("password").value = null; 
+  }
 });
