@@ -295,4 +295,15 @@ main .currentChatName{
    color: tomato;
  }
 
- 
+ @media all and (max-width: 600px){
+        #messageInput{
+          max-width: 80%;
+          height: 40%;
+        }
+        body, main {
+          height: 100vh;
+        }
+        main .sendMessage {
+          height : 20%;
+        }
+ }
