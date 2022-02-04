@@ -31,7 +31,10 @@
       <article class="groupChat displayedChat">
         <header class="chatHeader">
           <p class="currentChatName" id="chatName" >General</p>
+          <div>
           <button id="leaveChat">Leave chat</button>
+          <button id="addPeople"><i class="fas fa-user-plus"></i></button>
+          </div>
         </header>
         <section id="messageWindow" class="messages">
           <ul id="messageUl">
@@ -58,13 +61,22 @@
       <p class="title">MyChat</p>
       <div class="createNewGroup">
       <p class="create">Create a new group</p>
-      <input id="newGroupName" type="text" placeholder="Enter name of the group" />
+      <input id="newGroupName" type="text" placeholder="Enter the name of the group" />
       <button id="submitCreatedGroup" class="float-right">Submit</button>
       </div>
       <div class="findANewGroup">
         <p class="find">Find a new group</p>
-        <input id="searchedGroupName" type="text" placeholder="Enter name of the group" />
+        <input id="searchedGroupName" type="text" placeholder="Enter the name of the group" />
         <button id="searchForNewGroup" class="float-right">Search</button>
+      </div>
+    </section>
+    <section id= "newPerson" class="addPerson hidden">
+      <button id="exitNewPerson" class="exit"><i class="fas fa-times"></i></button>
+      <p class="title">MyChat</p>
+      <div class="findNewPerson">
+      <p class="find">Add a person to this chat room</p>
+      <input id="newPersonName" type="text" placeholder="Enter the username of the person" />
+      <button id="submitPerson" class="float-right">Submit</button>
       </div>
     </section>
   </body>

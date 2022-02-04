@@ -36,7 +36,7 @@ body {
   max-width: 200px;
   background-color: #091A32;
 }
-.buttonsWrapper button, .chatHeader button, .addGroup .float-right , .findGroup .float-right {
+.buttonsWrapper button, .chatHeader button, .addGroup .float-right , .findGroup .float-right  , .addPerson .float-right{
   margin-bottom: 3px;
   border-radius: 12px;
   padding: 7px;
@@ -52,7 +52,7 @@ body {
 .buttonsWrapper button{
   margin:10px;
 }
-.chatHeader button:hover , .addGroup .float-right:hover {
+.chatHeader button:hover , .addGroup .float-right:hover , .addPerson .float-right:hover{
     background-color: beige;
 }
 main {
@@ -190,7 +190,7 @@ main .currentChatName{
     padding-left: 30px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
-.addGroup {
+.addGroup , .addPerson{
     position: absolute;
     top: 31%;
     left: 50%;
@@ -204,12 +204,12 @@ main .currentChatName{
     border-radius:  8px;
     box-shadow: 0px 0px 20px;
 }
-.addGroup .title , .findGroup .title {
+.addGroup .title , .findGroup .title , .addPerson .title {
     font-size: 32px;
     margin:0px;
     color:#89BBDE;
 }
-.addGroup .create , .addGroup .find {
+.addGroup .create , .find {
     clear: right;
     color:#BBDCAD;
     margin-bottom: 10px;
@@ -220,7 +220,7 @@ main .currentChatName{
 .addGroup .find{
   margin-top: 80px;
 }
-.addGroup input {
+.addGroup input , .addPerson input{
     border:none;
     border-bottom: 2px solid #BBDCAD;
     width: 90%;
@@ -228,12 +228,12 @@ main .currentChatName{
     padding-bottom:8px;
     padding-top: 8px;
  }
- .addGroup input:focus {
+ .addGroup input:focus , .addPerson input:focus{
      border:none;
      outline: none;
      border-bottom: 2px solid #89BBDE;
  }
- .addGroup .float-right  {
+ .addGroup .float-right , .addPerson .float-right {
     display: block;
      float: right;
      margin-top: 30px;
