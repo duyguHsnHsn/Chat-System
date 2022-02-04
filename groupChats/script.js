@@ -35,6 +35,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const database = getDatabase(app);
 const auth = getAuth();
+const dbRef = ref(database);
 const addGroupsButton = document.getElementById("plusButton");
 const exitAddingNewGroup = document.getElementById("exitNewGroup");
 const inboxButton = document.getElementById("inboxButton");
@@ -44,7 +45,8 @@ const messageInput = document.getElementById("messageInput");
 const messageUl = document.getElementById("messageUl");
 const createNewGroup = document.getElementById("submitCreatedGroup");
 const findNewGroup = document.getElementById("searchForNewGroup");
-const dbRef = ref(database);
+const groupsListUl = document.getElementById("groupListUl");
+const leaveChat = document.getElementById("leaveChat");
 
 if (database,window.localStorage.getItem("username")) {
   get(child(dbRef, window.localStorage.getItem("username"))).then((snapshot) => {
@@ -60,7 +62,7 @@ if (database,window.localStorage.getItem("username")) {
   });
 };
 
-const dataRef = ref(database, "General");
+const dataRef = ref(database, window.localStorage.getItem("currentChat"));
 
 messageInput.addEventListener("change", (event) => {
   const messageRef = push(dataRef);
@@ -76,12 +78,13 @@ messageInput.addEventListener("change", (event) => {
 onChildAdded(dataRef, (data) => {
   const message = data.val();
   const listItem = document.createElement("li");
-  const externalHTML = `<li class="message">
-<p class="username">${message.username}</p>
-<p>${ new Date(message.date).toLocaleString()}</p>
-<p class="text">${message.text}</p>
-<p class="likes"><i class="fas fa-heart"></i> ${message.likes}</p>
-</li>`;
+  listItem.classList.add("message");
+  const externalHTML = `
+    <p class="username">${message.username}</p>
+    <p>${ new Date(message.date).toLocaleString()}</p>
+    <p class="text">${message.text}</p>
+    <p class="likes"><i class="fas fa-heart"></i> ${message.likes}</p>
+    `;
   listItem.innerHTML = externalHTML;
   messageUl.appendChild(listItem);
 });
@@ -98,12 +101,71 @@ exitAddingNewGroup.addEventListener("click", (event) => {
 
 inboxButton.addEventListener("click", (event) => {
   event.preventDefault();
+  const userRef = ref(database, window.localStorage.getItem("username"));
+  onChildAdded(userRef, (data) => {
+    const groupName = data.val();
+    const listItem = document.createElement("li");
+    const externalHTML = `
+    <p class="chatName" id="${groupName.groupName}" >${groupName.groupName}</p>
+  `;
+    listItem.innerHTML = externalHTML;
+    groupsListUl.appendChild(listItem);
+  });
   document.getElementById("listWrapper").classList.remove("hidden");
+});
+
+groupsListUl.addEventListener("click",(event)=>{
+  window.localStorage.setItem("currentChat",event.target.id);
+  document.getElementById("chatName").innerText = window.localStorage.getItem("currentChat");
+  messageUl.innerHTML = null;
+  get(child(dbRef, window.localStorage.getItem("currentChat"))).then((snapshot) => {
+    if (snapshot.exists()) {
+      for(var [key,value] of Object.entries(snapshot.val())){
+        var date = "";
+        var text = "";
+        var usern = "";
+        var likes = "";
+          for(var [innerKey,innerValue] of Object.entries(value)){
+            if(innerKey === "date"){
+              date = innerValue;
+            }
+            if(innerKey === "text"){
+              text = innerValue;
+            }
+            if(innerKey === "username"){
+              usern = innerValue;
+            }
+            if(innerKey === "likes"){
+              likes = innerValue;
+            }
+          }
+          const listItem = document.createElement("li");
+           listItem.classList.add("message");
+          const externalHTML = `
+          <p class="username">${usern}</p>
+          <p>${ new Date(date).toLocaleString()}</p>
+          <p class="text">${text}</p>
+          <p class="likes"><i class="fas fa-heart"></i> ${likes}</p>
+          `;
+        listItem.innerHTML = externalHTML;
+        messageUl.appendChild(listItem);
+      }
+      
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+  document.getElementById("listWrapper").classList.add("hidden");
+  groupsListUl.innerHTML = null;
+});
+
+leaveChat.addEventListener("click",(event)=>{
 });
 
 exitInbox.addEventListener("click", (event) => {
   event.preventDefault();
   document.getElementById("listWrapper").classList.add("hidden");
+  groupsListUl.innerHTML = null;
 });
 
 createNewGroup.addEventListener("click", (event)=>{
@@ -136,6 +198,8 @@ findNewGroup.addEventListener("click",(event)=>{
   var name = document.getElementById("searchedGroupName").value;
   get(child(dbRef, name)).then((snapshot) => {
     if (snapshot.exists()) {
+      const data = snapshot.val();
+      if(data.message){
       get(child(dbRef, window.localStorage.getItem("username"))).then((snapshot) => {
         if (snapshot.exists()) {
           const newRef = ref(database,window.localStorage.getItem("username"));
@@ -146,14 +210,18 @@ findNewGroup.addEventListener("click",(event)=>{
         }
       }).catch((error) => {
         console.error(error);
-      });
+      });}
+      else{
+        alert("No data available");
+      }
     } else {
-      console.log("No data available");
+      alert("No data available");
     }
   }).catch((error) => {
     console.error(error);
   });
     document.getElementById("searchedGroupName").value = null;
 });
+
 
 messageScreen.scrollTop = messageScreen.scrollHeight;

@@ -50,6 +50,7 @@ submit.addEventListener("click", (event) => {
   if(!errorFound){
     var mailArr = email.split('@');
   window.localStorage.setItem("username", mailArr[0]);
+  window.localStorage.setItem("currentChat", "General");
   document.getElementById("linker").classList.remove("hidden");
   }
   else{
