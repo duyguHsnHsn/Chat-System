@@ -36,7 +36,7 @@ const analytics = getAnalytics(app);
 const database = getDatabase(app);
 const auth = getAuth();
 const dbRef = ref(database);
-const addGroupsButton = document.getElementById("plusButton");
+const openSectionForAddingNewGroups = document.getElementById("plusButton");
 const exitAddingNewGroup = document.getElementById("exitNewGroup");
 const inboxButton = document.getElementById("inboxButton");
 const exitInbox = document.getElementById("exitGroupList");
@@ -47,9 +47,12 @@ const createNewGroup = document.getElementById("submitCreatedGroup");
 const findNewGroup = document.getElementById("searchForNewGroup");
 const groupsListUl = document.getElementById("groupListUl");
 const leaveChat = document.getElementById("leaveChat");
-const addPeople = document.getElementById("addPeople");
+const openSectionForAddingPeople = document.getElementById("addPeople");
 const exitAddingPeople = document.getElementById("exitNewPerson");
-const newPersonToChatButton = document.getElementById("submitPerson");
+const addNewPerson = document.getElementById("submitPerson");
+const exitRequestSection = document.getElementById("exitNewRequests");
+const openRequests = document.getElementById("requestsButton");
+const requestsUl = document.getElementById("requestsUl");
 
 if (database,'users/' + window.localStorage.getItem("username")) {
   get(child(dbRef,'users/' + window.localStorage.getItem("username"))).then((snapshot) => {
@@ -92,7 +95,7 @@ onChildAdded(dataRef, (data) => {
   messageUl.appendChild(listItem);
 });
 
-addGroupsButton.addEventListener("click", (event) => {
+openSectionForAddingNewGroups.addEventListener("click", (event) => {
   event.preventDefault();
   document.getElementById("newGroup").classList.remove("hidden");
 });
@@ -197,10 +200,71 @@ createNewGroup.addEventListener("click", (event)=>{
   document.getElementById("newGroupName").value = null;
 });
 
-findNewGroup.addEventListener("click",(event)=>{
+findNewGroup.addEventListener("click" , (event)=>{
   event.preventDefault();
   var name = document.getElementById("searchedGroupName").value;
-  get(child(dbRef, name)).then((snapshot) => {
+  joinTheGroup(name);
+  document.getElementById("searchedGroupName").value = null;
+});
+
+openSectionForAddingPeople.addEventListener("click",(event)=>{
+   event.preventDefault();
+   document.getElementById("newPerson").classList.remove("hidden");
+});
+addNewPerson.addEventListener("click",(event)=>{
+  event.preventDefault();
+  var name = document.getElementById("newPersonName").value;
+  var chat = window.localStorage.getItem("currentChat");
+  const personsRequestsRef = ref(database,'requests/' + name);
+  const newRequestRef = push(personsRequestsRef);
+  set(newRequestRef, {
+    chatToJoin: chat
+  }); 
+  document.getElementById("newPersonName").value = null;
+});
+
+exitAddingPeople.addEventListener("click",(event)=>{
+  event.preventDefault();
+  document.getElementById("newPerson").classList.add("hidden");
+});
+
+openRequests.addEventListener("click" , (event)=>{
+  event.preventDefault();
+  get(child(dbRef,'requests/' + window.localStorage.getItem("username"))).then((snapshot) => {
+    if (snapshot.exists()) {
+      for(var [key,value] of Object.entries(snapshot.val())){
+        var groupName ="";
+        for(var [innerKey,innerValue] of Object.entries(value)){
+          if(innerKey === "chatToJoin"){
+            groupName = innerValue;
+          }
+        }
+        const listItem = document.createElement("li");
+          const externalHTML = `
+          <p id="groupFromRequest" class="chatName">${groupName}</p>
+              <div>
+              <button id="yesButton" onclick="joinTheGroup(${groupName})">Yes</button>
+              <button id="noButton" onclick="removeTheRequest(${groupName})">No</button>
+            </div>
+          `;
+        listItem.innerHTML = externalHTML;
+        requestsUl.appendChild(listItem);
+      }   
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+  document.getElementById("requestSection").classList.remove("hidden");
+})
+
+exitRequestSection.addEventListener("click" , (event)=>{
+  event.preventDefault();
+  requestsUl.innerHTML = null;
+  document.getElementById("requestSection").classList.add("hidden");
+})
+
+function joinTheGroup(name){
+  get(child(dbRef,'groups/'+ name)).then((snapshot) => {
     if (snapshot.exists()) {
       const data = snapshot.val();
       get(child(dbRef, 'users/' + window.localStorage.getItem("username"))).then((snapshot) => {
@@ -220,28 +284,7 @@ findNewGroup.addEventListener("click",(event)=>{
   }).catch((error) => {
     console.error(error);
   });
-    document.getElementById("searchedGroupName").value = null;
-});
+};
 
-addPeople.addEventListener("click",(event)=>{
-   event.preventDefault();
-   document.getElementById("newPerson").classList.remove("hidden");
-});
-exitAddingPeople.addEventListener("click",(event)=>{
-  event.preventDefault();
-  document.getElementById("newPerson").classList.add("hidden");
-});
-
-newPersonToChatButton.addEventListener("click",(event)=>{
-  event.preventDefault();
-  var name = document.getElementById("newPersonName").value;
-  var chat = window.localStorage.getItem("currentChat");
-  const personsRequestsRef = ref(database,'requests/' + name);
-  const newRequestRef = push(personsRequestsRef);
-  set(newRequestRef, {
-    chatToJoin: chat
-  }); 
-  document.getElementById("newPersonName").value = null;
-});
 
 messageScreen.scrollTop = messageScreen.scrollHeight;

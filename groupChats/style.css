@@ -19,7 +19,7 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-.screenHeader h1 {
+.screenHeader h1 , .requests .title , .requests .question{
   color: #907472;
   margin-left: 30px;
   font-family: Georgia, 'Times New Roman', Times, serif;
@@ -36,7 +36,7 @@ body {
   max-width: 200px;
   background-color: #091A32;
 }
-.buttonsWrapper button, .chatHeader button, .addGroup .float-right , .findGroup .float-right  , .addPerson .float-right{
+.buttonsWrapper button, .chatHeader button, .addGroup .float-right , .findGroup .float-right  , .addPerson .float-right , .requests button {
   margin-bottom: 3px;
   border-radius: 12px;
   padding: 7px;
@@ -46,19 +46,19 @@ body {
   font-size: 15px;
   box-shadow: 0px 0px 20px;
 }
-.buttonsWrapper button, .chatHeader button{
+.buttonsWrapper button, .chatHeader button {
     background-color: #02AF9C;
 }
-.buttonsWrapper button{
+.buttonsWrapper button {
   margin:10px;
 }
-.chatHeader button:hover , .addGroup .float-right:hover , .addPerson .float-right:hover{
+.chatHeader button:hover , .addGroup .float-right:hover , .addPerson .float-right:hover , .requests button:hover {
     background-color: beige;
 }
 main {
   display: flex;
 }
-main #listWrapper {
+main #listWrapper , .requests{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -81,7 +81,7 @@ main #listWrapper nav ul {
   overflow: hidden;
   overflow-y: scroll;
 }
-main #listWrapper .groupList{
+main #listWrapper .groupList , .requests ul{
   overflow:hidden;
   font-size: 30px;
   color:#89BBDE;
@@ -274,7 +274,7 @@ main .currentChatName{
     border:none;
     color:white;
     background-color: transparent; 
-    margin-right: 30px;
+    margin-right: 10px;
  }
  .openSearchingGroups:hover , .openGroupList:hover {
     font-size: 15px;
@@ -294,7 +294,42 @@ main .currentChatName{
  .likes i{
    color: tomato;
  }
-
+ .requests li {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   justify-content: space-between;
+   align-items: center;
+   background-color: #443a3e;
+   padding: 5px 10px;
+   border-radius: 12px;
+   margin :0px;
+ }
+ .requests li p{
+   margin : 0px;
+ }
+ .requests ul{
+   max-width: 100%;
+   padding: 10px;
+ }
+ .requests button {
+   background-color: #89BBDE;
+ }
+ .requests .title , .requests .question{
+   font-size: 30px;
+   margin: 5px;
+   padding-bottom: 10px;
+   border-bottom: 1px solid beige;
+ }
+ .requests .exit {
+   background-color: transparent;
+   color: beige;
+   box-shadow: none;
+ }
+ .requests .exit:hover {
+  background-color: transparent;
+  font-size: larger;
+ }
  @media all and (max-width: 600px){
         #messageInput{
           max-width: 80%;

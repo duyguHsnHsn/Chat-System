@@ -14,6 +14,7 @@
       <div>
       <button id="plusButton" class="openSearchingGroups"><i class="fas fa-plus"></i></button>
       <button id="inboxButton" class="openGroupList"><i class="fas fa-inbox"></i></button>
+      <button id ="requestsButton" class="openGroupList"><i class="fas fa-comment-medical"></i></button>
       </div>
     </header>
     <main>
@@ -78,6 +79,20 @@
       <input id="newPersonName" type="text" placeholder="Enter the username of the person" />
       <button id="submitPerson" class="float-right">Submit</button>
       </div>
+    </section>
+    <section  id= "requestSection" class="requests hidden">
+      <button id="exitNewRequests" class="exit"><i class="fas fa-times"></i></button>
+      <p class="title">MyChat</p>
+      <p class="question">Do you want to join this groups?</p>
+        <ul class="requestsUl" id="requestsUl">
+         <li>
+              <p id="groupFromRequest" class="chatName">Lalala</p>
+              <div>
+              <button id="yesButton" value ="Lalala" >Yes</button>
+              <button id="noButton" value= "Lalala">No</button>
+            </div>
+            </li>
+        </ul>            
     </section>
   </body>
 </html>
