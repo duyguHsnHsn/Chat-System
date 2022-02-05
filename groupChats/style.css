@@ -330,6 +330,19 @@ main .currentChatName{
   background-color: transparent;
   font-size: larger;
  }
+  #deleteMessage{
+    background-color: transparent;
+    float: right;
+    border:none;
+    color:white;
+  }
+  #deleteMessage:hover{
+    font-size: larger;
+  }
+  .likes:hover{
+    font-size: larger;
+  }
+
  @media all and (max-width: 600px){
         #messageInput{
           max-width: 80%;
