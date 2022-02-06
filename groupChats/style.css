@@ -330,13 +330,13 @@ main .currentChatName{
   background-color: transparent;
   font-size: larger;
  }
-  #deleteMessage{
+  #deleteMessage , #updateMessage{
     background-color: transparent;
     float: right;
     border:none;
     color:white;
   }
-  #deleteMessage:hover{
+  #deleteMessage:hover , #updateMessage:hover{
     font-size: larger;
   }
   .likes:hover{
