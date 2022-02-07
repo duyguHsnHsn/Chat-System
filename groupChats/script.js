@@ -59,11 +59,10 @@ const notificationsButton = document.getElementById("notificationsButton");
 const notificationListUl = document.getElementById("notificationListUl");
 const exitNotifications = document.getElementById("exitNotificationList");
 
-
 var dataRef = ref(
   database,
   "groups/" + window.localStorage.getItem("currentChat")
-);
+);  
 
 if ((database, "users/" + window.localStorage.getItem("username"))) {
   get(child(dbRef, "users/" + window.localStorage.getItem("username")))
@@ -119,7 +118,7 @@ if ((database, "requests/" + window.localStorage.getItem("username"))) {
   openRequests.classList.add("red");
 }
 
-messageInput.addEventListener("change", (event) => {
+messageInput.addEventListener("change", (event) => { 
   const messageRef = push(dataRef);
   set(messageRef, {
     username: window.localStorage.getItem("username"),
@@ -177,10 +176,6 @@ groupsListUl.addEventListener("click", (event) => {
   document.getElementById("chatName").innerText =
   window.localStorage.getItem("currentChat");
   messageUl.innerHTML = null;
-  dataRef = ref(
-    database,
-    "groups/" + window.localStorage.getItem("currentChat")
-  );
   get(child(dbRef, "groups/" + window.localStorage.getItem("currentChat")))
     .then((snapshot) => {
       if (snapshot.exists()) {

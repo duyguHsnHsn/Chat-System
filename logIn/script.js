@@ -51,6 +51,7 @@ submit.addEventListener("click", (event) => {
     var mailArr = email.split('@');
   window.localStorage.setItem("username", mailArr[0]);
   window.localStorage.setItem("currentChat", "General");
+  window.localStorage.setItem("openGeneral", true);
   document.getElementById("linker").classList.remove("hidden");
   }
   else{
