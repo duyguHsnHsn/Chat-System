@@ -58,7 +58,7 @@ body {
 main {
   display: flex;
 }
-main #listWrapper , .requests{
+ #listWrapper , .requests , #notificationWrapper{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -68,12 +68,12 @@ main #listWrapper , .requests{
   background-color: #091A32;
   padding: 0px;
 }
-main #listWrapper , .buttonsWrapper , .screenHeader {
+#listWrapper , .buttonsWrapper , .screenHeader , #notificationWrapper{
   -moz-box-shadow: inset 0 0 10px #000000;
   -webkit-box-shadow: inset 0 0 10px #000000;
   box-shadow: inset 0 0 10px #000000;
-}
-main #listWrapper nav ul {
+} 
+#listWrapper nav ul , #notificationWrapper nav ul {
   list-style: none;
   margin: 0px;
   padding: 5px;
@@ -81,7 +81,7 @@ main #listWrapper nav ul {
   overflow: hidden;
   overflow-y: scroll;
 }
-main #listWrapper .groupList , .requests ul{
+ #listWrapper .groupList , .requests ul , #notificationWrapper .groupList{
   overflow:hidden;
   font-size: 30px;
   color:#89BBDE;
@@ -91,21 +91,21 @@ main #listWrapper .groupList , .requests ul{
   padding:35px;
   background-color: transparent;
 }
-main #listWrapper nav li {
+ #listWrapper nav li , #notificationWrapper nav li {
   background-color: #244B4B;
   padding: 10px;
   border-radius: 8px;
   margin-bottom: 10px;
 }
-main #listWrapper nav li p {
+#listWrapper nav li p  , #notificationWrapper nav li p{
   margin: 5px;
   overflow:hidden;
 }
-main #listWrapper nav li:hover {
+#listWrapper nav li:hover , #notificationWrapper nav li:hover {
   background-color: #D0D9CD;
   color: #443a3e;
 }
-main #listWrapper nav li .chatName {
+ #listWrapper nav li .chatName , #notificationWrapper nav li {
     font-weight: bold;
     color: #907472;
     font-size: 20px;
@@ -169,7 +169,7 @@ main .sendMessage{
     height: 11.7%;
     margin-top:5px;
 }
-main .sendMessage input{
+main .sendMessage input , .changeMessage input{
     height: 50%;
     margin-top: 20px;
     margin-left: 30px;
@@ -179,7 +179,7 @@ main .sendMessage input{
     padding-left: 20px;
     background-color: #2B383E;
 }
-main .sendMessage input:focus{
+main .sendMessage input:focus {
     border: none;
     background-color: beige;
 }
@@ -190,7 +190,7 @@ main .currentChatName{
     padding-left: 30px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
-.addGroup , .addPerson{
+.addGroup , .addPerson , .changeMessage{
     position: absolute;
     top: 31%;
     left: 50%;
@@ -244,7 +244,7 @@ main .currentChatName{
  .hidden {
      display: none;
  }
- .exit{
+ .exit , #notificationsWrapper .exit {
   float: right;
   border: none;
   background: transparent;
@@ -313,7 +313,7 @@ main .currentChatName{
    padding: 10px;
  }
  .requests button {
-   background-color: #89BBDE;
+   background-color: hsl(205, 56%, 70%);
  }
  .requests .title , .requests .question{
    font-size: 30px;
@@ -342,6 +342,26 @@ main .currentChatName{
   .likes:hover{
     font-size: larger;
   }
+  .changeMessage input{
+    height: 5vh;
+    margin: 5px;
+    width: 95%;
+    border-radius: 12px;
+    border:none;
+    padding-left: 20px;
+    background-color: beige;
+    overflow: auto;
+}
+.changeMessage p , #notificationWrapper p {
+  margin: 5px;
+  color: #959A9E;
+  font-size: 20px;
+}
+ .red {
+   color:red;
+ }
+
+
 
  @media all and (max-width: 600px){
         #messageInput{

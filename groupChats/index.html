@@ -15,20 +15,10 @@
       <button id="plusButton" class="openSearchingGroups"><i class="fas fa-plus"></i></button>
       <button id="inboxButton" class="openGroupList"><i class="fas fa-inbox"></i></button>
       <button id ="requestsButton" class="openGroupList"><i class="fas fa-comment-medical"></i></button>
+      <button id ="notificationsButton" class="openGroupList"><i class="fas fa-bell"></i></i></button>
       </div>
     </header>
     <main>
-      <section id ="listWrapper" class="hidden">
-        <button id="exitGroupList" class="exit"><i class="fas fa-times"></i></button>
-        <p class="groupList">Your groups</p>
-        <nav class="group-chats">
-          <ul id= "groupListUl">
-          <!--<li>
-              <p class="chatName">Lala</p>
-            </li>-->
-          </ul>
-        </nav>
-      </section>
       <article class="groupChat displayedChat">
         <header class="chatHeader">
           <p class="currentChatName" id="chatName" >General</p>
@@ -57,6 +47,17 @@
         </div>
       </article>
     </main>
+    <section id ="listWrapper" class="hidden">
+      <button id="exitGroupList" class="exit"><i class="fas fa-times"></i></button>
+      <p class="groupList">Your groups</p>
+      <nav class="group-chats">
+        <ul id= "groupListUl">
+        <!--<li>
+            <p class="chatName">Lala</p>
+          </li>-->
+        </ul>
+      </nav>
+    </section>
     <section id= "newGroup" class="addGroup hidden">
       <button id="exitNewGroup" class="exit"><i class="fas fa-times"></i></button>
       <p class="title">MyChat</p>
@@ -93,6 +94,26 @@
             </div>
             </li>-->
         </ul>            
+    </section>
+    <section class="changeMessage hidden" id="changeMessageSection">
+      <p>Change your message from here</p>
+      <input
+            type="text"
+            class="newMessage"
+            id = "changeMessageInput"
+            placeholder="Type something..."
+          />
+    </section>
+    <section id ="notificationWrapper" class="hidden">
+      <button id="exitNotificationList" class="exit"><i class="fas fa-times"></i></button>
+      <p class="goupList">Your notifications</p>
+      <nav class="notifications">
+        <ul id= "notificationListUl">
+        <!--<li>
+            <p class="chatName">Lala</p>
+          </li>-->
+        </ul>
+      </nav>
     </section>
   </body>
 </html>
