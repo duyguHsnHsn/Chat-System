@@ -118,7 +118,9 @@ if ((database, "requests/" + window.localStorage.getItem("username"))) {
   openRequests.classList.add("red");
 }
 
-messageInput.addEventListener("change", (event) => { 
+messageInput.addEventListener("change", (event) => {
+  dataRef = ref( database,"groups/" + window.localStorage.getItem("currentChat"));  
+  console.log(window.localStorage.getItem("currentChat")); 
   const messageRef = push(dataRef);
   set(messageRef, {
     username: window.localStorage.getItem("username"),
@@ -127,10 +129,10 @@ messageInput.addEventListener("change", (event) => {
     likes: 0,
   });
   sendNotifications(window.localStorage.getItem("currentChat"));
-  messageInput.value = null;
+  messageInput.value = null; 
 });
 
-onChildAdded(dataRef, (data) => {
+onChildAdded( dataRef, (data) => {
   updateAllMessages(data);
 });
 
@@ -161,8 +163,9 @@ inboxButton.addEventListener("click", (event) => {
   onChildAdded(userRef, (data) => {
     const groupName = data.val();
     const listItem = document.createElement("li");
+    listItem.setAttribute("id", groupName.groupName);
     const externalHTML = `
-    <p class="chatName" id="${groupName.groupName}" >${groupName.groupName}</p>
+    <p class="chatName"  >${groupName.groupName}</p>
   `;
     listItem.innerHTML = externalHTML;
     groupsListUl.appendChild(listItem);
@@ -171,8 +174,8 @@ inboxButton.addEventListener("click", (event) => {
 });
 
 groupsListUl.addEventListener("click", (event) => {
-  window.localStorage.removeItem("currentChat");
-  window.localStorage.setItem("currentChat", event.target.id);
+  window.localStorage.setItem("currentChat", event.target.innerText);
+  console.log(window.localStorage.getItem("currentChat"));
   document.getElementById("chatName").innerText =
   window.localStorage.getItem("currentChat");
   messageUl.innerHTML = null;

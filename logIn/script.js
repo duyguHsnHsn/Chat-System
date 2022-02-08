@@ -31,12 +31,19 @@ const userDataRef = ref(database, "users");
 const submit = document.getElementById("submitLogin");
 
 submit.addEventListener("click", (event) => {
-  var errorFound = false;
   event.preventDefault();
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
   const auth = getAuth();
-  signInWithEmailAndPassword(auth, email, password)
+  signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+    if(userCredential){
+      var mailArr = email.split('@');
+      window.localStorage.setItem("username", mailArr[0]);
+      window.localStorage.setItem("currentChat", "General");
+      window.localStorage.setItem("openGeneral", true);
+      document.getElementById("linker").classList.remove("hidden");
+    }
+  })
   .catch((error) => {
     var errorCode = error.code;
     var errorMessage = error.message;
@@ -45,19 +52,9 @@ submit.addEventListener("click", (event) => {
     } else {
       alert(errorMessage);
     }
-    errorFound = true;
-  });
-  if(!errorFound){
-    var mailArr = email.split('@');
-  window.localStorage.setItem("username", mailArr[0]);
-  window.localStorage.setItem("currentChat", "General");
-  window.localStorage.setItem("openGeneral", true);
-  document.getElementById("linker").classList.remove("hidden");
-  }
-  else{
     document.getElementById("email").value = null;    
     document.getElementById("password").value = null; 
-  }
+  });
 });
 
 
