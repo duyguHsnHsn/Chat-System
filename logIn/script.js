@@ -41,7 +41,7 @@ submit.addEventListener("click", (event) => {
       window.localStorage.setItem("username", mailArr[0]);
       window.localStorage.setItem("currentChat", "General");
       window.localStorage.setItem("openGeneral", true);
-      document.getElementById("linker").classList.remove("hidden");
+      location.replace("/groupChats/index.html");
     }
   })
   .catch((error) => {

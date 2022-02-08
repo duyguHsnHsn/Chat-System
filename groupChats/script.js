@@ -62,7 +62,7 @@ const exitNotifications = document.getElementById("exitNotificationList");
 var dataRef = ref(
   database,
   "groups/" + window.localStorage.getItem("currentChat")
-);  
+);
 
 if ((database, "users/" + window.localStorage.getItem("username"))) {
   get(child(dbRef, "users/" + window.localStorage.getItem("username")))
@@ -83,8 +83,8 @@ if ((database, "users/" + window.localStorage.getItem("username"))) {
                 child(
                   dbRef,
                   "groups-users/" +
-                    "General/" +
-                    window.localStorage.getItem("username")
+                  "General/" +
+                  window.localStorage.getItem("username")
                 )
               )
                 .then((snapshot3) => {
@@ -112,123 +112,115 @@ if ((database, "users/" + window.localStorage.getItem("username"))) {
 }
 
 if ((database, "notifications/" + window.localStorage.getItem("username"))) {
-  notificationsButton.classList.add("red");
+  get(child(dbRef, "notifications/" + window.localStorage.getItem("username")))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        notificationsButton.classList.add("red");
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
 if ((database, "requests/" + window.localStorage.getItem("username"))) {
-  openRequests.classList.add("red");
+  get(child(dbRef, "requests/" + window.localStorage.getItem("username")))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        openRequests.classList.add("red");
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
 
 messageInput.addEventListener("change", (event) => {
-  dataRef = ref( database,"groups/" + window.localStorage.getItem("currentChat"));  
-  console.log(window.localStorage.getItem("currentChat")); 
+  dataRef = ref(database, "groups/" + window.localStorage.getItem("currentChat"));
+  console.log(window.localStorage.getItem("currentChat"));
   const messageRef = push(dataRef);
+  var myDate = Date.now();
   set(messageRef, {
     username: window.localStorage.getItem("username"),
-    date: Date.now(),
+    date: myDate,
     text: event.target.value,
     likes: 0,
   });
+  const listItem = document.createElement("li");
+  listItem.classList.add("message");
+  const externalHTML = `
+      <button id="updateMessage" class="updateMessage" value="update"><i class="fas fa-pencil-alt"></i></i></button>
+      <button id="deleteMessage" class="deleteMessage" value="delete""><i class="fas fa-trash-alt"></i></button>
+      <p class="username">${window.localStorage.getItem("username")}</p>
+      <p>${new Date(myDate).toLocaleString()}</p>
+      <p class="text">${event.target.value}</p>
+      <button class="likes" value="likes"><i class="fas fa-heart"></i> 0</button>
+      `;
+  listItem.innerHTML = externalHTML;
+  messageUl.appendChild(listItem);
   sendNotifications(window.localStorage.getItem("currentChat"));
-  messageInput.value = null; 
+  messageInput.value = null;
 });
 
-onChildAdded( dataRef, (data) => {
+messageUl.addEventListener("click", event => {
+  event.preventDefault();
+  const operation = event.target.parentNode.value; // gives us update or delete
+  if (operation !== "likes") {
+      const ourDate = event.target.parentNode.parentNode.childNodes[7].innerText; // date
+      const ourText = event.target.parentNode.parentNode.childNodes[9].innerText; // text
+      if (operation === "delete") {
+        deleteMessage(ourDate, ourText);
+       }
+      else {
+
+      }
+  }
+});
+
+
+/*onChildAdded( dataRef, (data) => {
   updateAllMessages(data);
-});
+});*/
 
-onChildRemoved(dataRef, (data) => {
+/*onChildRemoved(dataRef, (data) => {
   updateAllMessages(data);
 });
 
 onChildChanged(dataRef, (data) => {
   updateAllMessages(data);
-});
+});*/
 
-openSectionForAddingNewGroups.addEventListener("click", (event) => {
-  event.preventDefault();
-  document.getElementById("newGroup").classList.remove("hidden");
-});
 
-exitAddingNewGroup.addEventListener("click", (event) => {
-  event.preventDefault();
-  document.getElementById("newGroup").classList.add("hidden");
-});
 
 inboxButton.addEventListener("click", (event) => {
   event.preventDefault();
-  const userRef = ref(
-    database,
-    "users/" + window.localStorage.getItem("username")
-  );
-  onChildAdded(userRef, (data) => {
-    const groupName = data.val();
-    const listItem = document.createElement("li");
-    listItem.setAttribute("id", groupName.groupName);
-    const externalHTML = `
-    <p class="chatName"  >${groupName.groupName}</p>
-  `;
-    listItem.innerHTML = externalHTML;
-    groupsListUl.appendChild(listItem);
-  });
-  document.getElementById("listWrapper").classList.remove("hidden");
-});
-
-groupsListUl.addEventListener("click", (event) => {
-  window.localStorage.setItem("currentChat", event.target.innerText);
-  console.log(window.localStorage.getItem("currentChat"));
-  document.getElementById("chatName").innerText =
-  window.localStorage.getItem("currentChat");
-  messageUl.innerHTML = null;
-  get(child(dbRef, "groups/" + window.localStorage.getItem("currentChat")))
+  groupsListUl.innerHTML = null;
+  get(child(dbRef, "users/" + window.localStorage.getItem("username")))
     .then((snapshot) => {
       if (snapshot.exists()) {
         for (var [key, value] of Object.entries(snapshot.val())) {
-          var date = "";
-          var text = "";
-          var usern = "";
-          var likes = "";
-          for (var [innerKey, innerValue] of Object.entries(value)) {
-            if (innerKey === "date") {
-              date = innerValue;
-            }
-            if (innerKey === "text") {
-              text = innerValue;
-            }
-            if (innerKey === "username") {
-              usern = innerValue;
-            }
-            if (innerKey === "likes") {
-              likes = innerValue;
-            }
-          }
+          const groupName = value;
           const listItem = document.createElement("li");
-          listItem.classList.add("message");
-          if (usern === window.localStorage.getItem("username")) {
-            const externalHTML = `
-              <button id="updateMessage" class="updateMessage" onclick="updateMessage()"><i class="fas fa-pencil-alt"></i></i></button>
-              <button id="deleteMessage" class="deleteMessage" onclick="deleteMessage()"><i class="fas fa-trash-alt"></i></button>
-              <p class="username">${usern}</p>
-              <p>${new Date(date).toLocaleString()}</p>
-              <p class="text">${text}</p>
-              <button class="likes"><i class="fas fa-heart"></i> ${likes}</button>
-              `;
-            listItem.innerHTML = externalHTML;
-          } else {
-            const externalHTML = `
-              <p class="username">${usern}</p>
-              <p>${new Date(date).toLocaleString()}</p>
-              <p class="text">${text}</p>
-              <button class="likes"><i class="fas fa-heart"></i> ${likes}</button>
-              `;
-            listItem.innerHTML = externalHTML;
-          }
-          messageUl.appendChild(listItem);
+          listItem.setAttribute("id", groupName.groupName);
+          const externalHTML = `
+            <p class="chatName"  >${groupName.groupName}</p>
+          `;
+          listItem.innerHTML = externalHTML;
+          groupsListUl.appendChild(listItem)
         }
       }
     })
     .catch((error) => {
       console.error(error);
     });
+  document.getElementById("listWrapper").classList.remove("hidden");
+});
+
+groupsListUl.addEventListener("click", (event) => {
+  window.localStorage.setItem("currentChat", event.target.innerText);
+  document.getElementById("chatName").innerText =
+    window.localStorage.getItem("currentChat");
+  messageUl.innerHTML = null;
+  updateAllMessages();
   document.getElementById("listWrapper").classList.add("hidden");
   groupsListUl.innerHTML = null;
 });
@@ -261,6 +253,16 @@ exitInbox.addEventListener("click", (event) => {
   event.preventDefault();
   document.getElementById("listWrapper").classList.add("hidden");
   groupsListUl.innerHTML = null;
+});
+
+openSectionForAddingNewGroups.addEventListener("click", (event) => {
+  event.preventDefault();
+  document.getElementById("newGroup").classList.remove("hidden");
+});
+
+exitAddingNewGroup.addEventListener("click", (event) => {
+  event.preventDefault();
+  document.getElementById("newGroup").classList.add("hidden");
 });
 
 createNewGroup.addEventListener("click", (event) => {
@@ -325,6 +327,7 @@ exitAddingPeople.addEventListener("click", (event) => {
 
 openRequests.addEventListener("click", (event) => {
   event.preventDefault();
+  requestsUl.innerHTML = null;
   get(child(dbRef, "requests/" + window.localStorage.getItem("username")))
     .then((snapshot) => {
       if (snapshot.exists()) {
@@ -339,8 +342,8 @@ openRequests.addEventListener("click", (event) => {
           const externalHTML = `
           <p id="groupFromRequest" class="chatName">${groupName}</p>
               <div>
-              <button id="yesButton" onclick="requestAnswerYes(${groupName})">Yes</button>
-              <button id="noButton" onclick="removeTheRequest(${groupName})">No</button>
+              <button id="yesButton" value="${groupName}">Yes</button>
+              <button id="noButton" value="${groupName}">No</button>
             </div>
           `;
           listItem.innerHTML = externalHTML;
@@ -354,6 +357,17 @@ openRequests.addEventListener("click", (event) => {
   document.getElementById("requestSection").classList.remove("hidden");
 });
 
+requestsUl.addEventListener("click", (event) => {
+  event.preventDefault();
+  var groupName = event.target.value;
+  if (event.target.innerText.trim() == "Yes") {
+    requestAnswerYes(groupName);
+  }
+  else {
+    requestAnswerNo(groupName);
+  }
+});
+
 exitRequestSection.addEventListener("click", (event) => {
   event.preventDefault();
   requestsUl.innerHTML = null;
@@ -362,17 +376,27 @@ exitRequestSection.addEventListener("click", (event) => {
 
 notificationsButton.addEventListener("click", (event) => {
   event.preventDefault();
+  updateNotifications();
+  document.getElementById("notificationWrapper").classList.remove("hidden");
+});
+
+notificationListUl.addEventListener("click", (event) => {
   get(child(dbRef, "notifications/" + window.localStorage.getItem("username")))
     .then((snapshot) => {
       if (snapshot.exists()) {
         for (var [key, value] of Object.entries(snapshot.val())) {
           for (var [innerKey, innerValue] of Object.entries(value)) {
-            const listItem = document.createElement("li");
-            const externalHTML = `
-            <p class="chatName">${innerValue}</p>
-            `;
-            listItem.innerHTML = externalHTML;
-            notificationListUl.appendChild(listItem);
+            if (innerValue == event.target.innerText.trim()) {
+              remove(
+                child(
+                  dbRef,
+                  "notifications/" +
+                  window.localStorage.getItem("username") +
+                  "/" +
+                  key
+                )
+              );
+            }
           }
         }
       }
@@ -380,7 +404,7 @@ notificationsButton.addEventListener("click", (event) => {
     .catch((error) => {
       console.error(error);
     });
-  document.getElementById("notificationWrapper").classList.remove("hidden");
+  updateNotifications();
 });
 
 exitNotifications.addEventListener("click", (event) => {
@@ -389,32 +413,59 @@ exitNotifications.addEventListener("click", (event) => {
   notificationListUl.innerHTML = null;
 });
 
+
+
 function updateAllMessages(data) {
-  const message = data.val();
-  const listItem = document.createElement("li");
-  listItem.classList.add("message");
-  if (message.username === window.localStorage.getItem("username")) {
-    const externalHTML = `
-    <button id="updateMessage" class="updateMessage" onclick="updateMessage()"><i class="fas fa-pencil-alt"></i></i></button>
-    <button id="deleteMessage" class="deleteMessage" onclick="deleteMessage()"><i class="fas fa-trash-alt"></i></button>
-    <p class="username">${message.username}</p>
-    <p>${new Date(message.date).toLocaleString()}</p>
-    <p class="text">${message.text}</p>
-    <button class="likes"><i class="fas fa-heart"></i> ${message.likes}</button>
-    `;
-    listItem.innerHTML = externalHTML;
-  } else {
-    const externalHTML = `
-    <p class="username">${message.username}</p>
-    <p>${new Date(message.date).toLocaleString()}</p>
-    <p class="text">${message.text}</p>
-    <button  class="likes"><i class="fas fa-heart"></i> ${
-      message.likes
-    }</button >
-    `;
-    listItem.innerHTML = externalHTML;
-  }
-  messageUl.appendChild(listItem);
+  get(child(dbRef, "groups/" + window.localStorage.getItem("currentChat")))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        for (var [key, value] of Object.entries(snapshot.val())) {
+          var date = "";
+          var text = "";
+          var usern = "";
+          var likes = "";
+          for (var [innerKey, innerValue] of Object.entries(value)) {
+            if (innerKey === "date") {
+              date = innerValue;
+            }
+            if (innerKey === "text") {
+              text = innerValue;
+            }
+            if (innerKey === "username") {
+              usern = innerValue;
+            }
+            if (innerKey === "likes") {
+              likes = innerValue;
+            }
+          }
+          const listItem = document.createElement("li");
+          listItem.classList.add("message");
+          if (usern === window.localStorage.getItem("username")) {
+            const externalHTML = `
+              <button id="updateMessage" class="updateMessage" value="update"><i class="fas fa-pencil-alt"></i></i></button>
+              <button id="deleteMessage" class="deleteMessage" value="delete"><i class="fas fa-trash-alt"></i></button>
+              <p class="username">${usern}</p>
+              <p>${new Date(date).toLocaleString()}</p>
+              <p class="text">${text}</p>
+              <button class="likes"><i class="fas fa-heart"></i> ${likes}</button>
+              `;
+            listItem.innerHTML = externalHTML;
+          } else {
+            const externalHTML = `
+              <p class="username">${usern}</p>
+              <p>${new Date(date).toLocaleString()}</p>
+              <p class="text">${text}</p>
+              <button class="likes"><i class="fas fa-heart"></i> ${likes}</button>
+              `;
+            listItem.innerHTML = externalHTML;
+          }
+          messageUl.appendChild(listItem);
+        }
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
 
 function requestAnswerYes(name) {
@@ -459,23 +510,20 @@ function joinTheGroup(name) {
     });
 }
 
-function deleteMessage() {
-  const collection = this.parent.children;
-  const myArr = Array.from(collection);
+function deleteMessage(ourDate, ourText) {
   get(child(dbRef, "groups/" + window.localStorage.getItem("currentChat")))
     .then((snapshot) => {
       if (snapshot.exists()) {
         for (var [key, value] of Object.entries(snapshot.val())) {
-          if (checkTheKeysAndValuesOfMessage(myArr, value) === 4) {
-            remove(
-              child(
-                dbRef,
-                "groups/" +
-                  window.localStorage.getItem("currentChat") +
-                  "/" +
-                  key
-              )
-            );
+          var counter = 0;
+          for (var [innerKey, innerValue] of Object.entries(value)) {
+            if (new Date(innerValue).toLocaleString() == ourDate || innerValue === ourText) {
+              counter++;
+            }
+          }
+          if (counter == 2) {
+            remove(child(dbRef, "groups/" + window.localStorage.getItem("currentChat") + "/" + key));
+            break;
           }
         }
       }
@@ -483,6 +531,8 @@ function deleteMessage() {
     .catch((error) => {
       console.error(error);
     });
+    messageUl.innerHTML = null;
+    updateAllMessages();
 }
 function updateMessage() {
   const collection = this.parent.children;
@@ -541,9 +591,9 @@ function removeChosenRequest(name) {
                 child(
                   dbRef,
                   "requests/" +
-                    window.localStorage.getItem("username") +
-                    "/" +
-                    key
+                  window.localStorage.getItem("username") +
+                  "/" +
+                  key
                 )
               );
             }
@@ -626,12 +676,34 @@ function sendNotifications(groupName) {
                 const newRef = ref(database, "notifications/" + innerValue);
                 const createdRef = push(newRef);
                 set(createdRef, {
-                  notification: "New message to " + groupName,
+                  notification: groupName,
                 });
               })
               .catch((error) => {
                 console.error(error);
               });
+          }
+        }
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+function updateNotifications() {
+  notificationListUl.innerHTML = null;
+  get(child(dbRef, "notifications/" + window.localStorage.getItem("username")))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        for (var [key, value] of Object.entries(snapshot.val())) {
+          for (var [innerKey, innerValue] of Object.entries(value)) {
+            const listItem = document.createElement("li");
+            const externalHTML = `
+            <p class="chatName">${innerValue}</p>
+            `;
+            listItem.innerHTML = externalHTML;
+            notificationListUl.appendChild(listItem);
           }
         }
       }
