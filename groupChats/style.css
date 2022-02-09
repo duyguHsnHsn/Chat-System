@@ -361,6 +361,17 @@ main .currentChatName{
    color:red;
  }
 
+ #submitUpdatedMessage{
+   border-radius: 12px;
+   background-color: #959A9E;
+   margin-top: 20px;
+   padding: 5px;
+   color:white;
+   border:none;
+ }
+ #submitUpdatedMessage:hover{
+   background-color: #89BBDE;
+ }
 
 
  @media all and (max-width: 600px){

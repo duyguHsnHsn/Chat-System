@@ -58,11 +58,19 @@ const requestsUl = document.getElementById("requestsUl");
 const notificationsButton = document.getElementById("notificationsButton");
 const notificationListUl = document.getElementById("notificationListUl");
 const exitNotifications = document.getElementById("exitNotificationList");
+const exitEditingMessage = document.getElementById("exitUpdateMessage");
+var firstLog = true;
+
 
 var dataRef = ref(
   database,
   "groups/" + window.localStorage.getItem("currentChat")
 );
+
+if(firstLog){
+  updateAllMessages();
+  firstLog = false;
+}
 
 if ((database, "users/" + window.localStorage.getItem("username"))) {
   get(child(dbRef, "users/" + window.localStorage.getItem("username")))
@@ -164,18 +172,26 @@ messageInput.addEventListener("change", (event) => {
 messageUl.addEventListener("click", event => {
   event.preventDefault();
   const operation = event.target.parentNode.value; // gives us update or delete
+  console.log(operation);
   if (operation !== "likes") {
-      const ourDate = event.target.parentNode.parentNode.childNodes[7].innerText; // date
-      const ourText = event.target.parentNode.parentNode.childNodes[9].innerText; // text
       if (operation === "delete") {
+        const ourDate = event.target.parentNode.parentNode.childNodes[7].innerText; // date
+        const ourText = event.target.parentNode.parentNode.childNodes[9].innerText; // text
         deleteMessage(ourDate, ourText);
        }
       else {
-
       }
+  }
+  else{
   }
 });
 
+exitEditingMessage.addEventListener("click",(event)=>{
+  event.preventDefault();
+  window.localStorage.removeItem("messageToUpdate");
+  window.localStorage.removeItem("messageToUpdateDate");
+  document.getElementById("changeMessageSection").classList.add("hidden");
+});
 
 /*onChildAdded( dataRef, (data) => {
   updateAllMessages(data);
@@ -415,7 +431,7 @@ exitNotifications.addEventListener("click", (event) => {
 
 
 
-function updateAllMessages(data) {
+function updateAllMessages() {
   get(child(dbRef, "groups/" + window.localStorage.getItem("currentChat")))
     .then((snapshot) => {
       if (snapshot.exists()) {
@@ -523,6 +539,8 @@ function deleteMessage(ourDate, ourText) {
           }
           if (counter == 2) {
             remove(child(dbRef, "groups/" + window.localStorage.getItem("currentChat") + "/" + key));
+            messageUl.innerHTML = null;
+             updateAllMessages();
             break;
           }
         }
@@ -531,40 +549,53 @@ function deleteMessage(ourDate, ourText) {
     .catch((error) => {
       console.error(error);
     });
-    messageUl.innerHTML = null;
-    updateAllMessages();
 }
-function updateMessage() {
-  const collection = this.parent.children;
-  const myArr = Array.from(collection);
+/*function updateMessage() {
   get(child(dbRef, "groups/" + window.localStorage.getItem("currentChat")))
     .then((snapshot) => {
       if (snapshot.exists()) {
         for (var [key, value] of Object.entries(snapshot.val())) {
-          if (checkTheKeysAndValuesOfMessage(myArr, value) === 4) {
-            document.getElementById("changeMessage").classList.remove("hidden");
-          }
+          var counter = 0;
+           for (var [innerKey, innerValue] of Object.entries(value)) {
+               if (new Date(innerValue).toLocaleString() === window.localStorage.getItem("messageToUpdateDate")||
+               innerValue === window.localStorage.getItem("messageToUpdate")){
+                counter++;
+                }
+            }
+            if(counter===2){
+                console.log("here");
+
+            }
         }
       }
     })
     .catch((error) => {
       console.error(error);
     });
-}
+}*/
 
-function likeMessage() {
-  const collection = this.parent.children;
-  const myArr = Array.from(collection);
+/*function likeMessage(ourDate,ourText) {
   get(child(dbRef, "groups/" + window.localStorage.getItem("currentChat")))
     .then((snapshot) => {
       if (snapshot.exists()) {
+        var likes =0;
         for (var [key, value] of Object.entries(snapshot.val())) {
-          if (checkTheKeysAndValuesOfMessage(myArr, value) === 4) {
+          var counter =0;
+          for (var [innerKey, innerValue] of Object.entries(value)) {
+            if (innerValue == ourText || new Date(innerValue).toLocaleDateString() == ourDate || 
+            innerValue == window.localStorage.getItem("username")) {
+              counter++;
+            }
+            if(innerKey == "likes"){
+              likes = innerValue;
+            }
+          }
+          if (counter === 3) {
             const updateLikes = {
-              date: myArr[0],
-              likes: myArr[1] + 1,
-              text: myArr[2],
-              username: myArr[3],
+              date: ourDate,
+              likes: likes+1,
+              text: ourText,
+              username: window.localStorage.getItem("username"),
             };
             const updates = {};
             updates[
@@ -578,7 +609,9 @@ function likeMessage() {
     .catch((error) => {
       console.error(error);
     });
-}
+    messageUl.innerHTML =null;
+    updateAllMessages();
+}*/
 
 function removeChosenRequest(name) {
   get(child(dbRef, "requests/" + window.localStorage.getItem("username")))
@@ -636,20 +669,6 @@ function updateRequestsUl() {
     });
 }
 
-function checkTheKeysAndValuesOfMessage(myArr, value) {
-  var counter = 0;
-  for (var [innerKey, innerValue] of Object.entries(value)) {
-    if (
-      innerValue == myArr[0] ||
-      innerValue == myArr[1] ||
-      innerValue == myArr[2] ||
-      innerValue == myArr[3]
-    ) {
-      counter++;
-    }
-  }
-  return counter;
-}
 
 function addTheUserToChatsUserList(name) {
   get(child(dbRef, "groups-users/" + name))
